@@ -1,7 +1,6 @@
 /**
- * Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
- *
- * SPDX-License-Identifier: BSD-3-Clause
+ * Test program for add_repeating_timer_ms() function;
+ * Feb.16, 2021  Pa@ART
  */
 
 #include <stdio.h>
@@ -13,6 +12,7 @@
 #include "hardware/adc.h"
 
 #define CONV_FACTOR (3.25f / (1 << 12)) // ADC data -> voltage
+#define ADC_TEMP    4 // temperature sensor input 
 #define LED_PIN 25  // LED pin#
 #define I2C_SDA 4   // SDA pin#
 #define I2C_SCL 5   // SCL pin#
@@ -62,7 +62,7 @@ int main() {
     // enable temperature sensor
     adc_set_temp_sensor_enabled(true);
     // select ADC input
-    adc_select_input(4);    // ADC selected
+    adc_select_input(ADC_TEMP);    // ADC selected
     // set timer
     add_repeating_timer_ms( INTERVAL, disp_counter, NULL, &timer );
     temp = voltage = temp_p = voltage_p = 0;
