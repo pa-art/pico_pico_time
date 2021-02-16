@@ -65,11 +65,14 @@ int main() {
     adc_select_input(ADC_TEMP);    // ADC selected
     // set timer
     add_repeating_timer_ms( INTERVAL, disp_counter, NULL, &timer );
+    // clear variables
     temp = voltage = temp_p = voltage_p = 0;
 
     while (1) {
 
+        // convert ADC data to voltage
         voltage = temp_dat * CONV_FACTOR;
+        // convert voltage to temperature
         temp = 27 - (voltage - 0.706) / 0.001721;
         // make massage from voltage and temp
         sprintf(mes_lcd, "v=%2.3f, T=%2.1f", voltage, temp);
